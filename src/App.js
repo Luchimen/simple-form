@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Cita } from "./components/Cita";
+import { Formulario } from "./components/Formulario";
 
-function App() {
+export const App = () => {
+  const [citas, setCitas] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Administrador de pacientes</h1>
+      <div className="contenedor">
+        <Formulario setCitas={setCitas} citas={citas} />
+        {citas.length === 0 ? (
+          <h2>No hay citas programadas</h2>
+        ) : (
+          <Cita setCitas={setCitas} citas={citas} />
+        )}
+      </div>
     </div>
   );
-}
-
-export default App;
+};
