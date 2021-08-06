@@ -1,21 +1,25 @@
 import React, { useState } from "react";
-import { Cita } from "./components/Cita";
-import { Formulario } from "./components/Formulario";
+import { Titleh1, Titleh2 } from "./elements/Titulos";
 
+import { Pregunta } from "./components/Pregunta";
+import { Formulario } from "./components/Formulario";
+import { Resumen } from "./components/Resumen";
+import { ContenedorVista } from "./elements/ContenedorVista";
+import { AuthProvider, useGastos } from "./context/principalContext";
 export const App = () => {
-  const [citas, setCitas] = useState([]);
+  const [centinel, setCentinel] = useState(false);
 
   return (
-    <div>
-      <h1>Administrador de pacientes</h1>
-      <div className="contenedor">
-        <Formulario setCitas={setCitas} citas={citas} />
-        {citas.length === 0 ? (
-          <h2>No hay citas programadas</h2>
-        ) : (
-          <Cita setCitas={setCitas} citas={citas} />
-        )}
-      </div>
-    </div>
+    <AuthProvider>
+      <Titleh1>Gasto Semanal</Titleh1>
+      {!centinel ? (
+        <Pregunta setCentinel={setCentinel} />
+      ) : (
+        <ContenedorVista>
+          <Formulario />
+          <Resumen />
+        </ContenedorVista>
+      )}
+    </AuthProvider>
   );
 };
